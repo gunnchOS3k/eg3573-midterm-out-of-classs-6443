@@ -1,0 +1,22 @@
+Question 1ii. 
+Write the RTL code to implement a module that counts the number of '1' bits in a given binary input. 
+The module should be parameterized with 'DATA_WIDTH'. Input is 'din' and output to the circuit is 'dout'. 
+Verify the functionality using Testbench, also attach the waveform to the final solution.
+
+SEE 1ii.sv for RTL code with a module that counts the number of '1' bits in a given binary input 
+
+Main:
+-Module is parameterized with DATA_WIDTH, which determines the width of the input din.
+-Output dout is declared as a reg with a width of $clog2(DATA_WIDTH), which is the minimum number of bits required to represent the count of '1' bits in din.
+-Inside the always block, dout is initially set to 0.
+-For loop iterates over each bit of din from 0 to DATA_WIDTH-1.
+-Each iteration, if the current bit din[i] is 1, it is added to dout, effectively counting the number of '1' bits.
+
+SEE 1iiTB.sv to verify the functionality of the ones_counter module:
+
+Testbench:
+-DATA_WIDTH parameter is set to 8.
+-din and dout signals are declared.
+-Instance of the ones_counter module (dut) is created with the DATA_WIDTH parameter.
+-Inside the initial block, various test cases are applied to din, and the output dout is monitored using $monitor.
+-Simulation is run for a sufficient time to cover all test cases.

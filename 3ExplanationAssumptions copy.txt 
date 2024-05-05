@@ -1,0 +1,30 @@
+Question 3:
+Develop RTL code for a sequence detector using a Mealy state machine that can detect overlapping occurrences of the sequence '1010' in a stream of binary input bits. For example, the input stream '101010', the sequence '1010' appears twice. Develop a testbench to verify your design, and provide a waveform to demonstrate that the machine accurately identifies the pattern '10110'. Drawing a state diagram is optional.
+
+
+SEE 3.sv for a sequence detector using a Mealy state machine:
+Main:
+-Module has three inputs: clk (clock signal), rst_n (active-low asynchronous reset), and din (binary input stream).
+-Output dout indicates the detection of the sequence '1010'.
+-4 states are defined using parameters: S0, S1, S2, and S3.
+-State register holds the current state, and next_state holds the next state.
+-First always block updates the state register on the positive edge of clk or negative edge of rst_n.
+-Second always block is a combinational block that determines the next state and output based on the current state and input din.
+    -State S0, if din is 1, it transitions to state S1; otherwise, it remains in S0. The output dout is set to 0.
+    -State S1, if din is 1, it remains in S1; otherwise, it transitions to S2. The output dout is set to 0.
+    -State S2, if din is 1, it transitions to S3; otherwise, it transitions to S0. The output dout is set to 0.
+    -State S3, if din is 1, it transitions to S1; otherwise, it transitions to S2. The output dout is set to the complement of din.
+
+
+SEE 3TB.sv to verify the functionality of the sequence_detector_mealy module:
+
+Testbench:
+-clk, rst_n, and din signals are declared as reg, and dout is declared as wire.
+-Instance of the sequence_detector_mealy module (dut) is created.
+-First initial block generates the clock signal (clk) with a period of 10 time units.
+-Second initial block performs the following steps:
+    -rst_n is initially set to 0 (active reset), and din is set to 0.
+    -After 10 time units, rst_n is set to 1 (deactivate reset).
+    -Test pattern '101010' is applied to din with a 10 time unit delay between each bit.
+    -Test pattern '10110' is applied to din with a 10 time unit delay between each bit.
+

@@ -1,0 +1,19 @@
+Question 5:
+Write RTL code for a 4-bit ripple carry adder. The adder should sum two 4-bit operands and output a 4-bit sum along with a carryout. Design a testbench to simulate your ripple carry adder. Provide a waveform to demonstrate the correct operation of adder.
+SEE 5.sv for a 4-bit ripple carry adder:
+
+Main:
+-full_adder module is a basic building block that takes two 1-bit inputs (a and b), a carry-in (cin), and produces a 1-bit sum (sum) and a carry-out (cout).
+-ripple_carry_adder_4bit module instantiates four full_adder modules to create a 4-bit adder.
+-module has two 4-bit inputs (a and b), a 4-bit output (sum), and a carry-out (cout).
+-carry-out from each full_adder is connected to the carry-in of the next full_adder, creating a ripple carry chain.
+-carry-in of the first full_adder (fa0) is connected to ground (1'b0).
+-carry-out of the last full_adder (fa3) is the final carry-out (cout) of the 4-bit adder.
+
+SEE 5TB.sv testbench to simulate the 4-bit ripple carry adder:
+
+Testbench:
+-a and b signals are declared as 4-bit registers, and sum and cout are declared as wires.
+-Instance of the ripple_carry_adder_4bit module (dut) is created.
+-$monitor task is used to display the values of a, b, sum, and cout whenever any of them change.
+-Various test cases are applied to a and b with a delay of 10 time units between each case.

@@ -1,0 +1,25 @@
+Question 9:
+RTL code for implementation of adder-subtractor using mode. Where inputs to the circuit are clk, mode, a,b and sum where a, b and sum is 32-bit size. If mode is '0' addition is performed else subtraction is performed. Develop a testbench to verify the functionality of your module. Provide waveforms from your simulation that show the correct operation of the module with changing mode values and different input vectors.
+SEE 9.sv for an adder-subtractor using mode:
+
+Main:
+-Module has four inputs: clk (clock signal), mode (operation mode), a (32-bit input), and b (32-bit input).
+-Output sum is a 32-bit register that holds the result of the addition or subtraction.
+-Inside the always block, on the positive edge of clk:
+    -If mode is 0, the addition operation a + b is performed and the result is assigned to sum.
+    -If mode is 1, the subtraction operation a - b is performed and the result is assigned to sum.
+
+
+
+SEE 9TB.sv for testbench to verify the functionality of the adder-subtractor module:
+
+Testbench:
+-clk, mode, a, and b signals are declared as reg, and sum is declared as wire.
+-Instance of the adder_subtractor module (dut) is created.
+-First initial block generates the clock signal (clk) with a period of 10 time units.
+-2nd initial block applies various test cases:
+    -Initially, mode is set to 0 (addition), and a and b are set to zero.
+    -After 10 time units, mode is set to 0 (addition), and a and b are assigned different values.
+    -After another 10 time units, mode is set to 1 (subtraction), and a and b are assigned new values.
+    -Process continues with different combinations of mode, a, and b.
+-3rd initial block uses $monitor to display the values of mode, a, b, and sum whenever any of them change.

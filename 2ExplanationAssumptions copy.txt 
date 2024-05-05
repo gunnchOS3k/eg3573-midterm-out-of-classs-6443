@@ -1,0 +1,19 @@
+Question 2:
+Write RTL code to implement a frequency divider that divides an input clock signal by 4 using two D flip-flops with asynchronous reset. Also develop a testbench to verify your design, and provide a waveform for justification.
+
+SEE 2.sv for a frequency divider that divides an input clock signal by 4 using two D flip-flops with asynchronous reset:
+Main:
+-The module has two inputs: clk (input clock signal) and rst_n (active-low asynchronous reset).
+-The output clk_div is the divided clock signal.
+-A 2-bit register counter is used to count the clock cycles.
+-Inside the always block, on the positive edge of clk or negative edge of rst_n:
+    -If rst_n is low (active), counter is reset to 2'b00.
+    -Otherwise, counter is incremented by 1.
+-The MSB of counter (i.e., counter[1]) is assigned to clk_div. Since counter cycles through the values 0, 1, 2, and 3, clk_div will be high for 2 clock cycles and low for 2 clock cycles, effectively dividing the input clock by 4.
+
+SEE 2TB.sv to verify the functionality of the freq_divider module:
+Testbench:
+-The clk and rst_n signals are declared as reg, and clk_div is declared as wire.
+-An instance of the freq_divider module (dut) is created.
+-The first initial block generates the clock signal (clk) with a period of 10 time units.
+-The second initial block performs the following steps:

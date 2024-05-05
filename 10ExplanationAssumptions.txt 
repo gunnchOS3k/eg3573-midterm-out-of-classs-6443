@@ -1,0 +1,27 @@
+Question 10:
+Write the RTL code and testbench for the given circuit.
+
+
+SEE 10.sv for the RTL code:
+
+Main:
+-Module has two inputs: clk (clock signal) and resetN (active-low asynchronous reset).
+-Output cnt is a 4-bit register that represents the counter value.
+-Inside the always block, on the positive edge of clk or negative edge of resetN:
+    -If resetN is low (active), cnt is reset to 4'b0000.
+    -Otherwise, cnt is incremented by 1.
+
+
+SEE 10TB.sv testbench to verify the functionality of the up counter:
+
+Testbench:
+-clk and resetN signals are declared as reg, and cnt is declared as wire.
+-Instance of the up_counter module (dut) is created.
+1srt initial block generates the clock signal (clk) with a period of 10 time units.
+-Second initial block applies the following test scenario:
+    -Initially, resetN is set to 0 (active reset).
+    -After 10 time units, resetN is set to 1 (deactivate reset), allowing the counter to start incrementing.
+    -After 200 time units, resetN is set to 0 again (active reset) to reset the counter.
+    -After 20 time units, resetN is set to 1 (deactivate reset), and the counter resumes incrementing.
+    -Simulation runs for an additional 100 time units before terminating.
+-3rd initial block uses $monitor to display the values of resetN and cnt whenever any of them change.

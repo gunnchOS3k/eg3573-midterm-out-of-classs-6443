@@ -1,0 +1,27 @@
+Question 8:
+Design and Implement a Serial Input Parallel Output (SIPO) register in RTL. Create a testbench to verify your SIPO design. Attach the waveform images that document the functionality of your design.
+
+SEE 8.sv for a Serial Input Parallel Output (SIPO) register:
+
+Main:
+
+-Module is parameterized with N, which determines the width of the SIPO register.
+-Module has three inputs: clk (clock signal), rst_n (active-low asynchronous reset), and sin (serial input).
+Output pout is an N-bit parallel output.
+-shift_reg is an N-bit register that holds the shifted data.
+-Inside the always block, on the positive edge of clk or negative edge of rst_n:
+    -If rst_n is low (active), shift_reg is reset to 0.
+    -Otherwise, shift_reg is updated by shifting in the serial input sin from the LSB and discarding the MSB.
+-Parallel output pout is assigned the value of shift_reg.
+
+SEE 8TB.sv for testbench to verify the SIPO register:
+
+Testbench:
+-clk, rst_n, and sin signals are declared as reg, and pout is declared as wire.
+-Instance of the sipo_register module (dut) is created with the parameter N set to 8.
+-first initial block generates the clock signal (clk) with a period of 10 time units.
+-second initial block performs the following steps:
+    -rst_n is initially set to 0 (active reset), and sin is set to 0.
+    -After 10 time units, rst_n is set to 1 (deactivate reset).
+    -serial input data "10110101" is loaded into the SIPO register by applying the bits sequentially to sin with a delay of 10 time units between each bit.
+    -serial input data "01010011" is loaded into the SIPO register in a similar manner.

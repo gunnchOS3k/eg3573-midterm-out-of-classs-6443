@@ -1,0 +1,21 @@
+Question 7:
+Develop RTL code to construct a 16-bit adder by cascading four 4-bit adders modules to perform 16-bit addition operation. Develop a testbench to simulate your 16-bit adder. Provide the waveform output from your simulation to verify correct behavior, showing both the inputs and resulting outputs.
+
+SEE 7.sv for a 16-bit adder using four 4-bit adder modules:
+
+Main:
+-ripple_carry_adder_4bit module is the same as in the previous question, which performs 4-bit addition.
+-ripple_carry_adder_16bit module instantiates four ripple_carry_adder_4bit modules to construct a 16-bit adder.
+-Module has two 16-bit inputs (a and b), a 16-bit output (sum), and a carry-out (cout).
+-16-bit inputs a and b are divided into four 4-bit segments and connected to the corresponding ripple_carry_adder_4bit modules.
+-Carry-out from each 4-bit adder is connected to the carry-in of the next 4-bit adder, creating a ripple carry chain.
+-Carry-in of the first 4-bit adder (rca0) is connected to ground (1'b0).
+-Carry-out of the last 4-bit adder (rca3) is the final carry-out (cout) of the 16-bit adder.
+
+SEE 7TB.sv for testbench to simulate the 16-bit adder:
+
+Testbench:
+-a and b signals are declared as 16-bit registers, and sum and cout are declared as wires.-
+-Instance of the ripple_carry_adder_16bit module (dut) is created.
+-$monitor task is used to display the values of a, b, sum, and cout whenever any of them change. The values are displayed in hexadecimal format.
+-Various test cases are applied to a and b with a delay of 10 time units between each case.

@@ -1,0 +1,14 @@
+Question 1:
+(i) How does a code infer a latch? Could you provide some RTL code using case and if-else statements that might unintentionally infer latches, and explain how to avoid such inference?
+
+Explanation:
+Latch is inferred in RTL code when there are incomplete assignments within a conditional statement, such as an if-else or case statement. 
+When the synthesis tool encounters an incomplete assignment, it assumes that the unassigned values should retain their previous state, resulting in the inference of a latch.
+SEE RTL code that unintentionally infers a latch in 1i.sv :^)
+In this code, the out signal is assigned a value when sel is 2'b00 or 2'b01, but there is no assignment for other values of sel. This incomplete assignment causes the synthesis tool to infer a latch to hold the value of out when sel is not 2'b00 or 2'b01.
+
+Explanation:
+To avoid Latch inference, ensure that all possible cases are covered and assign a value to the output signal in every case. 
+SEE the corrected RTL code in 1iCorrected.sv :^)
+In the corrected code, the default case is added to assign the current value of out when sel is not 2'b00 or 2'b01. 
+This ensures that out is assigned a value in all cases, avoiding latch inference.

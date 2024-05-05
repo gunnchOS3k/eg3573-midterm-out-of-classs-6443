@@ -1,0 +1,21 @@
+Question 6:
+Develop RTL code for right rotate on an N-bit vector 'in' by a number of positions specified by the 'rfactor'. The output should be 'out', an N-bit vector that contains the result of rotation. Instead of using concatenate operation, employ a truncate to achieve rotation effect. Additionally, create a testbench to simulate this module and generate a waveform that demonstrates the functionality of your design across various test cases.
+
+SEE 6.sv for right rotate on an N-bit vector using truncate:
+Main:
+
+-Module has two inputs: in (N-bit input vector) and rfactor (the number of positions to rotate right).
+-Output out is an N-bit vector that contains the result of the right rotation.
+-Parameter N specifies the width of the input and output vectors.
+-Temporary wire temp of width 2*N is created to hold the concatenated value of in with itself.
+-Temp wire is right-shifted by rfactor positions using the >> operator.
+-Out vector is assigned the lower N bits of temp using truncate.
+
+SEE 6TB.sv testbench to simulate the right rotate module:
+
+Testbench:
+
+-in and rfactor signals are declared as registers, and out is declared as a wire.
+-Instance of the right_rotate module (dut) is created with the parameter N set to 8.
+-$monitor task is used to display the values of in, rfactor, and out whenever any of them change.
+-Various test cases are applied to in and rfactor with a delay of 10 time units between each case.
